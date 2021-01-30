@@ -3,24 +3,10 @@
 #include <time.h>
 #include "yams.h"
 
-const char* const COMBINAISONS[] = {
-        "As",
-        "Deux",
-        "Trois",
-        "Quatre",
-        "Cinq",
-        "Six",
-        "Brelan",
-        "Carre",
-        "Full",
-        "Petite suite",
-        "Grande suite",
-        "Yams",
-        "Chance"
-};
+const char* const COMBINAISONS[] = {"As", "Deux", "Trois", "Quatre", "Cinq", "Six", "Brelan", "Carre", "Full", "Petite suite", "Grande suite", "Yams", "Chance"};
 
 /**
- * Fonction utiliser pour le trie avec QSort pour comparer les deux nombre et indiquer le sens de trie
+ * Fonction utilisée pour le tri avec QSort pour comparer les deux nombres et indiquer le sens de tri
  * https://stackoverflow.com/questions/3893937/sorting-an-array-in-c
  * @param a
  * @param b
@@ -36,7 +22,10 @@ int compare( const void* a, const void* b)
 }
 
 
-void debut_partie(void)
+/**
+ * Fonction permettant de lancer la partie
+ */
+void debut_partie()
 {
     //printf("\U+2611");
     // Seed utilisé pour la fonction de random
@@ -76,12 +65,21 @@ void debut_partie(void)
     fin_partie(score_joueur1, score_joueur2);
 }
 
+/**
+ * Afficher l'entete au début de chaque tour
+ * @param joueur Joueur actuel
+ * @param tour Tour actuel
+ */
 void afficher_entete(int joueur, int tour) {
     printf("==== Joueur %d ====\n", joueur);
     printf("==== Tour %d ====\n\n", tour);
 }
 
-// Lancement des dès
+/**
+ * Lance les dés
+ * @param des
+ * @param nbdes Nombre de dés a lancer
+ */
 void lancer_des(int des[5], int nbdes)
 {
 	printf("Lancement des des...\n\n");
@@ -91,7 +89,10 @@ void lancer_des(int des[5], int nbdes)
     }
 }
 
-// Affichage des valeurs des dés
+/**
+ * Affiche les des passés en paramètre
+ * @param des
+ */
 void afficher_des(int des[5])
 {
     printf("Des:");
@@ -103,7 +104,12 @@ void afficher_des(int des[5])
     printf("\n\n");
 }
 
-// Relancer les dés
+/**
+ * Propose a l'utilisateur de relancer un certain nombre de dés/lesquels
+ * @param des
+ * @param joueur
+ * @param tour
+ */
 void relancer(int des[5], int joueur, int tour)
 {
 	int nbdes = -1;
@@ -140,16 +146,15 @@ void relancer(int des[5], int joueur, int tour)
 			}
 		}
         system("cls");
-        printf("==== Joueur %d ====\n", joueur);
-        printf("==== Tour %d ====\n\n", tour);
+        afficher_entete(joueur, tour);
 	}
 }
 
 /**
  * Demande a l'utilisateur de rentrer la combinaisons dans lequel il souhaite rentrer son score
  *
- * @param dices Lancé de dés
- * @param c_combo
+ * @param des
+ * @param combinaisons
  * @param scores
  */
 void choix_combinaison(int des[5], int combinaisons[13], int scores[13]) {
@@ -166,7 +171,10 @@ void choix_combinaison(int des[5], int combinaisons[13], int scores[13]) {
 	}
 }
 
-
+/**
+ * Affiche la fiche d'un joueur
+ * @param combinaisons Liste des combinaisons du joueur
+ */
 void afficher_combinaisons(int combinaisons[13])
 {
     printf("=======================\n");
@@ -176,7 +184,11 @@ void afficher_combinaisons(int combinaisons[13])
     printf("=======================\n\n");
 }
 
-// Affichage des scores
+/**
+ * Affiche le score d'un joueur
+ * @param scores Liste des scores du joueur
+ * @param joueur Joueur
+ */
 void afficher_scores (int scores[13], int joueur)
 {
     int somme = 0;
@@ -186,7 +198,14 @@ void afficher_scores (int scores[13], int joueur)
     printf("\nLe joueur %d a %d points.\n\n", joueur, somme);
 }
 
-
+/**
+ * Calcul le score d'un utilisateur
+ * @param combinaison Combinaison voulu par l'utilisateur
+ * @param des Liste des dés lancés
+ * @param combinaisons Liste des combinaisons du joueur
+ * @param points Liste des points du joueur
+ * @return Entier indiquant si la combinaison a pu être réalisée ou non
+ */
 int calculer_score(int combinaison, int des[5], int combinaisons[13], int points[13]) {
     int valide = 0;
     int valeur_combinaison = 0;
@@ -350,7 +369,11 @@ int calculer_score(int combinaison, int des[5], int combinaisons[13], int points
     return valide;
 }
 
-
+/**
+ * Gère la fin de partie
+ * @param points_joueur1 Liste des points du joueur 1
+ * @param points_joueur2 Liste des points du joueur 2
+ */
 void fin_partie (int points_joueur1[13], int points_joueur2[13])
 {
 	int somme_joueur1 = 0, somme_joueur2 = 0, gagnant = 0, bonus_joueur1 = 0;
