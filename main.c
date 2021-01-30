@@ -1,6 +1,6 @@
 #include "yams.h"
 
-void main (void)
+void main(void)
 {
-	start_game();
+	debut_partie();
 }
